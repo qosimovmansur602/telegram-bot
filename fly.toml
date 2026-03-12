@@ -1,4 +1,7 @@
+# fly.toml
+
 app = "telegram-bot-usmf8w"
+primary_region = "iad"
 
 [build]
 
