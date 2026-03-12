@@ -1,0 +1,8 @@
+app = "telegram-bot-usmf8w"
+
+[build]
+
+[env]
+
+[processes]
+app = "python bot.py"
