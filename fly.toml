@@ -3,7 +3,7 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-web = 'telegram-bot-usmf8w'
+app = 'telegram-bot-usmf8w'
 primary_region = 'iad'
 
 [build]
