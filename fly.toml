@@ -1,11 +1,15 @@
-# fly.toml
-
 app = "telegram-bot-usmf8w"
 primary_region = "iad"
 
 [build]
-
-[env]
+  image = "python:3.11"
 
 [processes]
-app = "python bot.py"
+  app = "python bot.py"
+
+[checks]
+  [checks.alive]
+    type = "tcp"
+    interval = "15s"
+    timeout = "2s"
+    port = 22
