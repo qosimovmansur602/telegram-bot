@@ -1,3 +1,4 @@
+import os
 from aiogram import Bot, Dispatcher, types
 from aiogram.utils import executor
 from aiogram.dispatcher import FSMContext
@@ -5,7 +6,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 
-TOKEN = "8309959181:AAEZx-Ueh2xmVDjl2ASvb_UGv4efPb53x_s"
+TOKEN = os.getenv("8309959181:AAEZx-Ueh2xmVDjl2ASvb_UGv4efPb53x_s")
 ADMIN_CHAT_ID = -1003637925360
 
 bot = Bot(token=TOKEN)
@@ -38,7 +39,6 @@ class Form(StatesGroup):
     prioritet = State()
 
 # ===== KLAVIATURALAR =====
-
 ishjoy_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 ishjoy_kb.add("Bosh ofis", "BXO/BXM/Markaz")
 
@@ -48,7 +48,6 @@ turi_kb.add("Avtomatlashtirish", "Optimallashtirish", "Robot qo'yish", "Boshqa")
 prior_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 prior_kb.add("Yuqori", "O‘rtacha", "Past")
 
-# 🆕 YANGI ARIZA TUGMASI
 new_app_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 new_app_kb.add("🆕 Yangi ariza yaratish")
 
@@ -58,7 +57,7 @@ async def start(message: types.Message):
     await message.answer("F.I.Sh kiriting:")
     await Form.fish.set()
 
-# 🆕 YANGI ARIZA BOSILGANDA STARTGA QAYTARADI
+# 🆕 YANGI ARIZA
 @dp.message_handler(lambda message: message.text == "🆕 Yangi ariza yaratish")
 async def new_application(message: types.Message, state: FSMContext):
     await state.finish()
@@ -178,10 +177,11 @@ async def finish(message: types.Message, state: FSMContext):
 
     await message.answer(
         f"Murojaatingiz qabul qilindi ✅\nAriza raqami: №{app_id}",
-        reply_markup=new_app_kb   # 🆕 SHU YERDA TUGMA CHIQADI
+        reply_markup=new_app_kb
     )
 
     await state.finish()
 
 if __name__ == "__main__":
-    executor.start_polling(dp)
+    executor.start_polling(dp, skip_updates=True)
+
